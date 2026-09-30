@@ -33,3 +33,22 @@ With Python 3 and FFmpeg installed, `python3 source/build_video.py` rebuilds the
 The final MP4 was checked with `ffprobe`: H.264 video, AAC audio, 960×540 at 30 fps, and a 25.000-second container duration. Frames from all sections, including the final frame, were inspected. Audio is non-silent (mean −17.9 dB; peak −4.1 dB). The `moov` atom precedes `mdat`.
 
 **Limitations:** The portraits are a fixed snapshot of the renderer at the block above. H.264's required 4:2:0 color sampling can introduce minor color bleed at edges even though all artwork scaling uses nearest-neighbour replication.
+
+## Mint slots film
+
+**Outputs:** `artifacts/mint-slots.mp4` and its extracted last frame, `artifacts/mint-slots-final.png`.
+
+This new 25-second film announces that a new batch of mint slots has been granted, explains why slots are granted rather than sold, and shows two ways a selected wallet can mint: connect on a block explorer and call `claim()` with no arguments, or send 0 ETH to the SwarmPepe contract from that wallet. Both routes require network gas; sending 0 ETH mints the wallet's full allocation. The closing explains that art is drawn later from a future block.
+
+| Item | Value |
+| --- | --- |
+| Minted token IDs used | 1, 2, 3, 4, 5, 6 |
+| Duration | 25.000 seconds, 750 frames at 30 fps |
+| Resolution | 1920 × 1080 |
+| Video | H.264, yuv420p, front-loaded `moov` atom |
+| Audio | AAC mono, 22.05 kHz; newly composed original synthesized chiptune score |
+| Build | `PYTHONDONTWRITEBYTECODE=1 python3 source/build_mint_slots.py` (Python 3 and FFmpeg; offline) |
+
+The portraits are rasterized directly from the six original SVG files in `assets/`, with their SHA-256 digests checked against `assets/provenance.json`; the SVGs contain only 24×24 filled rectangles. Scaling is integer nearest-neighbour replication, with no invented artwork. Contract addresses are shown only for SwarmPepe, not personal wallets. The film is a general announcement: it cannot verify a particular viewer's eligibility, and the pictured tokens are previously minted examples rather than previews of what a new mint will look like.
+
+**Brief limitations:** None. As with the earlier film, H.264 yuv420p chroma subsampling can slightly bleed color at hard pixel edges despite nearest-neighbour artwork scaling.
